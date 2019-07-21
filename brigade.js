@@ -3,6 +3,16 @@ const { events, Job } = require("brigadier");
 events.on("push", function (e, project) {
   console.log("received push for commit " + e.revision.commit)
 
+  checkPVC = new Job("checkpvc", "alpine:3.7")
+  checkPVC.storage.enabled = true
+  checkPVC.tasks = [
+    "ls -la /src/",
+    "ls -la /src/app"
+  ]
+  checkPVC.run().then(res => {
+    console.log(res.toString())
+  })
+
   // Create a new job
   var testRunner = new Job("test-runner")
 
