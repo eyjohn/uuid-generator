@@ -3,16 +3,6 @@ const { events, Job } = require("brigadier");
 events.on("push", function (e, project) {
   console.log("received push for commit " + e.revision.commit)
 
-  checkPVC = new Job("checkpvc", "alpine:3.7")
-  checkPVC.storage.enabled = true
-  checkPVC.tasks = [
-    "ls -la /src/",
-    "ls -la /src/app"
-  ]
-  checkPVC.run().then(res => {
-    console.log(res.toString())
-  })
-
   // Create a new job
   var testRunner = new Job("test-runner")
 
@@ -21,9 +11,8 @@ events.on("push", function (e, project) {
 
   // Now we want it to run these commands in order:
   testRunner.tasks = [
-    "cd /src/app",
-    "pip install -r requirements.txt",
     "cd /src/",
+    "pip install -r requirements.txt",
     "python setup.py test"
   ]
 
