@@ -53,7 +53,9 @@ all_events = [
 
 all_events.forEach(event => {
   events.on(event.name, function(e, project) {
-    console.log(event, e, project);
+    console.log("event", event);
+    console.log("brigade_event", e);
+    console.log("brigade_project", project);
   })
 });
 
