@@ -6,4 +6,3 @@ setup(
     packages=find_packages(),
     test_suite="tests",
 )
-
